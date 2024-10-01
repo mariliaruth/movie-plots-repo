@@ -1,0 +1,30 @@
+#!/bin/bash
+set -eo pipefail
+
+# Define a porta e a URL da API do LibreTranslate
+LT_PORT=5000
+APP_PORT=3001
+LIBRETRANSLATE_IMAGE="libretranslate/libretranslate"
+MY_APP_IMAGE="movieplotstranslator/movieplotstranslator"
+
+# Verifica se o Docker está instalado
+check_command() {
+    command -v "$1" >/dev/null 2>&1 || {
+        echo >&2 "$1 não encontrado. Por favor, instale antes de continuar.";
+        exit 1;
+    }
+}
+
+check_command docker
+
+# Inicia o container do LibreTranslate
+echo "Iniciando LibreTranslate..."
+docker run -d --rm -p $LT_PORT:5000 --name libretranslate $LIBRETRANSLATE_IMAGE
+
+# Inicia o container da sua aplicação
+echo "Iniciando a aplicação..."
+docker run -d --rm -p $APP_PORT:3001 --link libretranslate:libretranslate --name minhaaplicacao $MY_APP_IMAGE
+
+# Mensagem de sucesso
+echo "Ambos os containers foram iniciados:
+- LibreTranslate: http://localhost:$LT_PORT"
