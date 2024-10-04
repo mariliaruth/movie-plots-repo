@@ -1,8 +1,8 @@
-import {fecthMovie, fetchTranslation} from "../utils/apiConect.js";
+import {fetchMovie, fetchTranslation} from "../utils/apiConnect.js";
 
 class MovieService{
   static async getMovieInfo(movieName){
-    const movie= await fecthMovie(movieName);
+    const movie= await fetchMovie(movieName);
     return movie;
   }
   static async getTranslation(movieInfo){

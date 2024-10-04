@@ -18,27 +18,34 @@ O **Movie Plots** é um serviço que integra informações de filmes e oferece s
 
 ## Como Inicializar o Projeto
 
-Este projeto utiliza Docker para facilitar a inicialização das dependências, incluindo o serviço de tradução e a própria aplicação de consulta de filmes.
+Este projeto utiliza **npm** para iniciar o servidor da aplicação principal e Docker para inicializar o serviço de tradução, que será utilizado pela aplicação de consulta de filmes.
 
 ### Pré-requisitos
 
 - **Docker**: Certifique-se de que o Docker está instalado em sua máquina. Caso não tenha instalado, siga as instruções no site oficial do [Docker](https://docs.docker.com/get-docker/).
+- **Node.js e npm**: Para rodar o servidor da aplicação, você também precisará do Node.js e do npm instalados. Para instalar, siga as instruções do [site oficial do Node.js](https://nodejs.org/).
 
 ### Passos para Inicializar
 
-Para iniciar os containers Docker que incluem o LibreTranslate e o MoviePlotsTranslator, basta executar o script `run.sh`. Este script fará o download e iniciará ambos os containers de forma automatizada.
+1. **Iniciar o LibreTranslate** com Docker:
+   
+   Primeiramente, precisamos iniciar o container Docker que contém o serviço de tradução LibreTranslate. Para isso, execute o comando abaixo no terminal no diretorio LibreTranslate-main
 
-Execute o seguinte comando no terminal:
+   ```sh
+   ./run.sh --port 8000
+   ```
 
-```sh
-./run.sh
-```
+### Instalar Dependências:
+No diretorio /movie-plots rode o comando 
 
-### O que o Script Faz?
+   ```sh
+   npm install
+   ```
+### Iniciar a Aplicação Principal:
+  ```sh
+   npm start
+   ```
 
-1. **Verifica Dependências**: O script verifica se o Docker está instalado.
-2. **Inicia o LibreTranslate**: Inicia o container do LibreTranslate na porta **5001**.
-3. **Inicia o MoviePlotsTranslator**: Inicia o container da aplicação principal na porta **3001**, fazendo a conexão necessária com o LibreTranslate.
 
 ### URLs dos Serviços
 
@@ -72,42 +79,22 @@ Isso retornará a sinopse do filme traduzida para o português, oferecendo uma m
 ## Observações
 
 - Este projeto foi desenvolvido para fins educacionais e de aprendizado, aproveitando tecnologias modernas como Docker para facilitar a integração entre serviços.
-- Certifique-se de que as portas **5001** e **3001** estejam livres antes de executar o script para evitar conflitos com outros serviços locais.
+- Certifique-se de que as portas estejam livres antes de executar o script para evitar conflitos com outros serviços locais.
 
 ## Problemas Conhecidos
 
 ### Portas Ocupadas
 
-Caso as portas **5001** ou **3001** já estejam sendo usadas, é possível modificar o script `run.sh` para usar outras portas disponíveis.
-
-No entanto, existe uma maneira fácil de atribuir portas que estejam livrees no momento da execução utilizando **variáveis de ambiente**. 
-
-#### Exemplo: Alterando as Portas no Momento da Execução
-
-Para definir novas portas, você pode rodar o comando da seguinte forma:
-
-```sh
-LT_PORT=6001 APP_PORT=4001 ./run.sh
-```
-
-- **LT_PORT=6001**: Define a porta **6001** para o serviço LibreTranslate.
-- **APP_PORT=4001**: Define a porta **4001** para a aplicação principal MoviePlotsTranslator.
+Caso as portas já estejam sendo usadas, é possível modificar o script `run.sh` para usar outra porta disponível para rodar o LibreTranslate e configurar a ```const PORT =6100;```na linha seis do server.js.
 
 Estes numeros de portas podem ser a sua escolha.
-Desta forma, as novas portas são atribuídas no momento da execução, sem precisar modificar o script. Com essa configuração, você deverá acessar os serviços utilizando as novas portas:
-
-- **LibreTranslate**: [http://localhost:6001](http://localhost:6001)
-- **MoviePlotsTranslator**: [http://localhost:4001](http://localhost:4001)
-
-
-
 
 ## Como realizar a consulta da sinopse de um filme?
 
 Por exemplo, para buscar informações sobre o filme "Inception" com as portas alteradas, utilize:
 
 ```
-http://localhost:4001/movie/search?movie=inception
+http://localhost:/movie/search?movie=inception
 ```
 
 ## Conexão Docker

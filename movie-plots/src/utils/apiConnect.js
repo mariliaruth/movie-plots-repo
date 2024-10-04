@@ -1,4 +1,4 @@
-export async function fecthMovie(movieName){
+export async function fetchMovie(movieName){
   const URL = `http://www.omdbapi.com/?apikey=${process.env.API_KEY}&t=${movieName}&plot=full`;
   try{
     const res= await fetch(URL);
@@ -11,7 +11,8 @@ export async function fecthMovie(movieName){
   }
 }
 export async function fetchTranslation(moviePlot){
-  const URL = "http://localhost:5001/translate";
+  const URL = "http://localhost:8000/translate";
+
   const res = await fetch(URL, {
     method: "POST",
     body: JSON.stringify({

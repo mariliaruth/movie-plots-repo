@@ -11,8 +11,8 @@ RUN npm install
 # Copie o restante dos arquivos da aplicação
 COPY . .
 
-# Exponha a porta que a aplicação utiliza
-EXPOSE 3001
+# Exponha a porta que a aplicação utilliza
+EXPOSE 6100
 
 # Comando para rodar a aplicação
 CMD ["npm", "start"]
