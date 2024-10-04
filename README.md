@@ -96,7 +96,3 @@ Por exemplo, para buscar informações sobre o filme "Inception" com as portas a
 ```
 http://localhost:/movie/search?movie=inception
 ```
-
-## Conexão Docker
-
-Em algumas configurações, o link entre os containers pode falhar. Certifique-se de que ambos os containers estejam rodando para evitar problemas de conexão.
